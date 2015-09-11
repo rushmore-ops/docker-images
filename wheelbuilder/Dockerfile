@@ -9,15 +9,15 @@ RUN apk-install \
     gcc \
     fortify-headers \
     linux-headers \
-    postgresql-dev \
     libffi-dev \
-  && pip install virtualenv
+    postgresql-dev \
+  && pip install --no-cache virtualenv
 
 RUN virtualenv /wheel_venv
 
 # these are some setup_requires dependencies that explode on SSL checks later
 # God knows why
 # maybe because of this https://pip.readthedocs.org/en/stable/reference/pip_install.html#controlling-setup-requires
-RUN /wheel_venv/bin/pip install cffi ply ipaddress enum34 six pyasn1 idna
+RUN /wheel_venv/bin/pip install --no-cache cffi ply ipaddress enum34 six pyasn1 idna devpi-client
 
 CMD /host/wheelbuilder/run
